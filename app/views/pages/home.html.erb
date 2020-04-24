@@ -1,2 +1,81 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "banner.jpg" %>)">
+<h1>Les 29 ans confits nés</h1>
+<h2>Super, excellent</h2>
+<% if user_signed_in? %>
+  <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "nav-link", id: "log-out-link" %>
+<% end %>
+
+<div class="connected" style="width: 100%; justify-content: space-evenly; display: flex; color: white">
+  <p class="locate">Pierre-Alexandre est <%= Room.find(2).room == "dans La Terrasse" ? "sur La Terrasse" : Room.find(2).room %></p>
+  <p class="locate">Olivier est <%= Room.find(1).room == "dans La Terrasse" ? "sur La Terrasse" : Room.find(1).room %></p>
+</div>
+<p id="actualise"><em>(Il faut actualiser la page pour savoir si Olivier ou PA a changé de pièce)</em></p>
+<!-- <h5>(Vu que c'est à distance, on peut tout se faire mettre)</h5> -->
+</div>
+
+<div class="d-flex links-container">
+  <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre.jpg" %>);" >
+      <p>Le Salon</p>
+    </div>
+  <% end %>
+  <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "cuisine_v2.png" %>);" >
+      <p>La Cuisine</p>
+    </div>
+  <% end %>
+  <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre.jpg" %>);" >
+      <p>La Terrasse</p>
+    </div>
+  <% end %>
+</div>
+<div class="d-flex links-container">
+  <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre_v2.png" %>);" >
+      <p>La Chambre</p>
+    </div>
+  <% end %>
+  <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "toilettes_v2.png" %>);" >
+      <p>Les Toilettes</p>
+    </div>
+  <% end %>
+  <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre.jpg" %>);" >
+      <p>La Cave</p>
+    </div>
+  <% end %>
+</div>
+
+<div style="display: none;">
+  <% if user_signed_in? %>
+    <%= simple_form_for(current_user.room, remote: true) do |f| %>
+      <%= f.input :room, id: "room-input" %>
+      <%= f.submit "ok", id: 'click_update_form' %>
+    <% end %>
+
+    <script>
+      const onClick = (button) => {
+        button.addEventListener('click', (event) => {
+          // event.preventDefault();
+          const text = button.children[0].children[0].innerText;
+          console.log(text)
+          document.querySelector('#room_room').value = `dans ${text}`;
+          document.querySelector('#click_update_form').click();
+
+        })
+      };
+
+      document.querySelectorAll('.link-to-js').forEach((link) => {
+        onClick(link);
+      });
+
+      document.querySelector('#log-out-link').addEventListener('click', (event) => {
+
+      });
+
+    </script>
+
+  <% end %>
+</div>
