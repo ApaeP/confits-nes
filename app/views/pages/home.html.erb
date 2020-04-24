@@ -2,7 +2,8 @@
 <h1>Les 29 ans confits nés</h1>
 <h2>Super, excellent</h2>
 <% if user_signed_in? %>
-  <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "nav-link", id: "log-out-link" %>
+  <p id="log-out-link">Déconnexion</p>
+  <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "nav-link", id: 'hidden-logout-link' %>
 <% end %>
 
 <div class="connected" style="width: 100%; justify-content: space-evenly; display: flex; color: white">
@@ -15,7 +16,7 @@
 
 <div class="d-flex links-container">
   <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
-    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre.jpg" %>);" >
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "unnamed_v2.png" %>);" >
       <p>Le Salon</p>
     </div>
   <% end %>
@@ -25,7 +26,7 @@
     </div>
   <% end %>
   <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
-    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre.jpg" %>);" >
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "unnamed_v2.png" %>);" >
       <p>La Terrasse</p>
     </div>
   <% end %>
@@ -42,7 +43,7 @@
     </div>
   <% end %>
   <%= link_to "https://meet.jit.si/Coucoulesfils", target: "_blank", class: "card-link link-to-js" do %>
-    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "chambre.jpg" %>);" >
+    <div class="card-cont" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= image_path "unnamed_v2.png" %>);" >
       <p>La Cave</p>
     </div>
   <% end %>
@@ -58,12 +59,9 @@
     <script>
       const onClick = (button) => {
         button.addEventListener('click', (event) => {
-          // event.preventDefault();
           const text = button.children[0].children[0].innerText;
-          console.log(text)
           document.querySelector('#room_room').value = `dans ${text}`;
           document.querySelector('#click_update_form').click();
-
         })
       };
 
@@ -72,7 +70,9 @@
       });
 
       document.querySelector('#log-out-link').addEventListener('click', (event) => {
-
+        document.querySelector('#room_room').value = "Hors Ligne";
+        document.querySelector('#click_update_form').click();
+        setTimeout('document.querySelector("#hidden-logout-link").click()', 300);
       });
 
     </script>
